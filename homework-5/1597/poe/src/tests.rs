@@ -28,12 +28,15 @@ fn it_works_for_default_value() {
 #[test]
 fn transfer_claim_works() {
     new_test_ext().execute_with(|| {
-        let claim = BoundedVec::try_from(vec![1, 1]).unwrap();
-        let to = 2u64;
+        System::set_block_number(1);
+        let claim = BoundedVec::try_from(vec![1, 2]).unwrap();
+        assert_ok!(PoeModule::claim_created(RuntimeOrigin::signed(1), claim.clone()));
+
         assert_ok!(PoeModule::transfer_claim(
-            RuntimeOrigin::signed(2),
+            RuntimeOrigin::signed(1),
             claim.clone(),
-            to.clone()
+            2
         ));
+        assert_eq!(Proofs::<Test>::get(&claim), Some((2, 1)));
     })
 }
