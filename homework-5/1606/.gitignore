@@ -1,0 +1,8 @@
+docs/
+target/
+env-setup/
+LICENSE
+node/
+localSpec.json
+runtime/
+pallets/template
