@@ -48,11 +48,16 @@ impl frame_system::Config for Test {
 }
 
 impl pallet_template::Config for Test {
-    type RuntimeEvent = RuntimeEvent;
-    type WeightInfo = ();
+	type RuntimeEvent = RuntimeEvent;
+
+	// 为了测试，我们将最大长度设置为 10
+	type MaxClaimLength = frame_support::traits::ConstU32<10>;
+
+	// type WeightInfo = ();
 }
 
 // Build genesis storage according to the mock runtime.
+// 测试脚手架
 pub fn new_test_ext() -> sp_io::TestExternalities {
     frame_system::GenesisConfig::<Test>::default()
         .build_storage()
